@@ -69,8 +69,8 @@
 
     {{-- ปุ่มเพิ่มและลบ อยู่ข้างกัน --}}
     <div class="col-12 text-right mt-2 mb-3 d-flex justify-content-end gap-2">
-        <button type="button" id="delete-select-btn" class="btn btn-danger" style="min-width: 90px; display:none;">- ลบ</button>
-        <button type="button" id="add-select-btn" class="btn btn-primary" style="min-width: 90px;">+ เพิ่ม</button>
+        <button type="button" id="delete-select-btn" class="btn btn-danger" style="min-width: 90px; display:none;">- Delete</button>
+        <button type="button" id="add-select-btn" class="btn btn-primary" style="min-width: 90px;">+ Add</button>
     </div>
 
     {{-- ผลรวมทรัพยากร --}}
