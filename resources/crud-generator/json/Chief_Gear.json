@@ -1,0 +1,32 @@
+{
+    "fields": [
+        {
+            "name": "Tier",
+            "type": "string"
+        },
+        {
+            "name": "Stars",
+            "type": "string"
+        },
+        {
+            "name": "Hardened_Alloy",
+            "type": "string"
+        },
+        {
+            "name": "Polishing_Solution",
+            "type": "string"
+        },
+        {
+            "name": "Design_Plans",
+            "type": "string"
+        },
+        {
+            "name": "Lunar_Amber",
+            "type": "string"
+        },
+        {
+            "name": "Power",
+            "type": "string"
+        }
+    ]
+}
