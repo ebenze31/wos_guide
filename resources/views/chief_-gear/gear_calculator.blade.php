@@ -5,8 +5,8 @@
     .tier-green { background-color: #d4edda; }     /* เขียวอ่อน */
     .tier-blue { background-color: #d1ecf1; }      /* ฟ้าอ่อน */
     .tier-purple { background-color: #e2d6f3; }    /* ม่วงอ่อน */
-    .tier-gold { background-color: #FF9966cc; }      /* เหลืองทอง */
-    .tier-pink { background-color: #FF3333cc; }      /* ชมพูอ่อน */
+    .tier-gold { background-color: #FFCC99; }      /* เหลืองทอง */
+    .tier-pink { background-color: #FA8072; }      /* ชมพูอ่อน */
 </style>
 
 
