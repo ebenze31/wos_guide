@@ -68,6 +68,7 @@
                     <th scope="col">Polishing Solution</th>
                     <th scope="col">Design Plans</th>
                     <th scope="col">Lunar Amber</th>
+                    <th scope="col">Power</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,6 +96,7 @@
                         <td>{{ is_numeric($item->Polishing_Solution) ? number_format((float) $item->Polishing_Solution) : '-' }}</td>
                         <td>{{ is_numeric($item->Design_Plans) ? number_format((float) $item->Design_Plans) : '-' }}</td>
                         <td>{{ is_numeric($item->Lunar_Amber) ? number_format((float) $item->Lunar_Amber) : '-' }}</td>
+                        <td>{{ is_numeric($item->Power) ? number_format((float) $item->Power) : '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
