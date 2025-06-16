@@ -38,22 +38,22 @@
             <div class="col-3">
                 Hardened Alloy
                 <br>
-                <span id="total_alloy"><b>0</b></span>
+                <b><span id="total_alloy">0</span></b>
             </div>
             <div class="col-3">
                 Polishing Solution
                 <br>
-                <span id="total_solution"><b>0</b></span>
+                <b><span id="total_solution">0</span></b>
             </div>
             <div class="col-3">
                 Design Plans
                 <br>
-                <span id="total_plans"><b>0</b></span>
+                <b><span id="total_plans">0</span></b>
             </div>
             <div class="col-3">
                 Lunar Amber
                 <br>
-                <span id="total_amber"><b>0</b></span>
+                <b><span id="total_amber">0</span></b>
             </div>
         </div>
     </div>
