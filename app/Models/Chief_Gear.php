@@ -25,7 +25,7 @@ class Chief_Gear extends Model
      *
      * @var array
      */
-    protected $fillable = ['Tier', 'Stars', 'Hardened_Alloy', 'Polishing_Solution', 'Design_Plans', 'Lunar_Amber', 'Power'];
+    protected $fillable = ['Tier', 'Stars', 'Hardened_Alloy', 'Polishing_Solution', 'Design_Plans', 'Lunar_Amber', 'Power', 'Score'];
 
     
 }

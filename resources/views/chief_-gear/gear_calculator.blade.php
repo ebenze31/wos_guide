@@ -10,6 +10,13 @@
 </style>
 
 <div class="row">
+    <div class="mt-3">
+        <label>
+            <div style="font-size: 1.2rem; font-weight: bold;">
+                Total Score SVS : <span id="total_score" style="font-size: 1.8rem;">0</span>
+            </div>
+        </label>
+    </div>
 
     {{-- Input ผู้ใช้มีทรัพยากร --}}
     <div class="col-12 mt-3">
@@ -64,6 +71,12 @@
                     @endforeach
                 </select>
             </div>
+            <div class="row mt-2 per-result">
+                <div class="col-12 text-muted small">
+                    <span class="res-summary">Alloy: - | Solution: - | Plans: - | Amber: - | Score SVS: -</span>
+                </div>
+            </div>
+            <center><hr></center>
         </div>
     </div>
 
@@ -109,6 +122,7 @@
                     <th scope="col">Design Plans</th>
                     <th scope="col">Lunar Amber</th>
                     <th scope="col">Power</th>
+                    <th scope="col">Score (SVS)</th>
                 </tr>
             </thead>
             <tbody>
@@ -143,6 +157,7 @@
                         <td>{{ is_numeric($item->Design_Plans) ? number_format($item->Design_Plans) : '-' }}</td>
                         <td>{{ is_numeric($item->Lunar_Amber) ? number_format($item->Lunar_Amber) : '-' }}</td>
                         <td>{{ is_numeric($item->Power) ? number_format($item->Power) : '-' }}</td>
+                        <td>{{ is_numeric($item->Score) ? number_format($item->Score) : '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -216,23 +231,43 @@
 
     function calculateResources() {
         let alloy = 0, solution = 0, plans = 0, amber = 0;
+        let totalScore = 0;
 
         container.querySelectorAll('.select-row').forEach(row => {
             const start = parseInt(row.querySelector('.start_select').value);
             const end = parseInt(row.querySelector('.end_select').value);
-            if (isNaN(start) || isNaN(end)) return;
+            const resultSpan = row.querySelector('.res-summary');
+
+            if (isNaN(start) || isNaN(end)) {
+                if (resultSpan) resultSpan.textContent = 'Alloy: - | Solution: - | Plans: - | Amber: - | Score SVS: -';
+                return;
+            }
 
             let from = Math.min(start, end);
             let to = Math.max(start, end);
             from = start < end ? from + 1 : from;
             to = start > end ? to - 1 : to;
 
+            let stepAlloy = 0, stepSolution = 0, stepPlans = 0, stepAmber = 0, scoreStep = 0;
+
             for (let i = from; i <= to; i++) {
                 const item = tiersData[i];
-                alloy += parseInt(item.Hardened_Alloy) || 0;
-                solution += parseInt(item.Polishing_Solution) || 0;
-                plans += parseInt(item.Design_Plans) || 0;
-                amber += parseInt(item.Lunar_Amber) || 0;
+                stepAlloy += parseInt(item.Hardened_Alloy) || 0;
+                stepSolution += parseInt(item.Polishing_Solution) || 0;
+                stepPlans += parseInt(item.Design_Plans) || 0;
+                stepAmber += parseInt(item.Lunar_Amber) || 0;
+                scoreStep += parseInt(item.Score) || 0;
+            }
+
+            alloy += stepAlloy;
+            solution += stepSolution;
+            plans += stepPlans;
+            amber += stepAmber;
+            totalScore += scoreStep * 36;
+
+            // แสดงผลเฉพาะชุดนี้
+            if (resultSpan) {
+                resultSpan.textContent = `Alloy: ${stepAlloy.toLocaleString()} | Solution: ${stepSolution.toLocaleString()} | Plans: ${stepPlans.toLocaleString()} | Amber: ${stepAmber.toLocaleString()} | Score SVS: ${(scoreStep * 36).toLocaleString()}`;
             }
         });
 
@@ -245,12 +280,29 @@
         updateDisplay('total_solution', solution, userSolution);
         updateDisplay('total_plans', plans, userPlans);
         updateDisplay('total_amber', amber, userAmber);
+
+        const scoreEl = document.getElementById('total_score');
+        if (scoreEl) {
+            scoreEl.textContent = totalScore.toLocaleString();
+        }
     }
+
+
 
     function updateDisplay(id, total, have) {
         const el = document.getElementById(id);
-        el.innerHTML = `<span style="color:${have >= total ? 'green' : 'red'};">${total.toLocaleString()}</span> <span style="color:black;">(${have.toLocaleString()})</span>`;
+        const diff = have - total;
+        const color = diff >= 0 ? 'green' : 'red';
+        const statusText = diff >= 0 ? ` (+${diff.toLocaleString()})` : ` (${diff.toLocaleString()})`;
+
+        el.innerHTML = `
+            <span style="color:${color}; font-size: 1rem;">${total.toLocaleString()}</span> 
+            <span style="color:black; font-size: 0.85rem;">(${have.toLocaleString()})</span>
+            <br>
+            <span style="color:${color}; font-size: 0.85rem; font-weight: bold;">${statusText}</span>
+        `;
     }
+
 
     function updateButtonsVisibility() {
         const count = container.querySelectorAll('.select-row').length;
