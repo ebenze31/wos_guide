@@ -88,7 +88,11 @@
                     includedLanguages: 'th,en,zh-CN,ja,ko',
                     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                 }, 'google_translate_element');
+
+                // เรียกหลังสร้างเสร็จแน่นอน
+                setTimeout(setTranslatorCombo, 1000); // รอ 1 วินาทีให้ iframe แสดงก่อน
             }
+
 
             function setTranslatorCombo() {
                 const interval = setInterval(() => {
@@ -115,11 +119,18 @@
             }
 
             function trocarIdioma(lang) {
-                if (comboGoogleTradutor) {
-                    comboGoogleTradutor.value = lang;
-                    changeEvent(comboGoogleTradutor);
-                }
+                const tryChange = () => {
+                    if (comboGoogleTradutor) {
+                        comboGoogleTradutor.value = lang;
+                        changeEvent(comboGoogleTradutor);
+                    } else {
+                        // ยังไม่เจอ select -> ลองใหม่ทุก 500ms
+                        setTimeout(tryChange, 500);
+                    }
+                };
+                tryChange();
             }
+
 
         </script>
         <script>
