@@ -32,6 +32,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:trocarIdioma('th')">TH</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:trocarIdioma('en')">EN</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -77,33 +80,50 @@
 
         <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script type="text/javascript">
+            let comboGoogleTradutor = null;
+
             function googleTranslateElementInit() {
                 new google.translate.TranslateElement({
-                    pageLanguage: 'en', // หรือ 'en' แล้วแต่ภาษาเริ่มต้นของหน้า
-                    includedLanguages: 'th,en,zh-CN,ja,ko', // เลือกภาษาที่ต้องการให้แปล
+                    pageLanguage: 'en',
+                    includedLanguages: 'th,en,zh-CN,ja,ko',
                     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                 }, 'google_translate_element');
             }
 
+            function setTranslatorCombo() {
+                const interval = setInterval(() => {
+                    const iframe = document.querySelector("iframe.goog-te-menu-frame");
+                    if (iframe) {
+                        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const select = innerDoc.querySelector("select.goog-te-combo");
+                        if (select) {
+                            comboGoogleTradutor = select;
+                            clearInterval(interval);
+                        }
+                    }
+                }, 500);
+            }
+
             function changeEvent(el) {
-              if (el.fireEvent) {
-                el.fireEvent('onchange');
-              } else {
-                var evObj = document.createEvent("HTMLEvents");
-
-                evObj.initEvent("change", false, true);
-                el.dispatchEvent(evObj);
-              }
+                if (el.fireEvent) {
+                    el.fireEvent('onchange');
+                } else {
+                    const evObj = document.createEvent("HTMLEvents");
+                    evObj.initEvent("change", false, true);
+                    el.dispatchEvent(evObj);
+                }
             }
 
-            function trocarIdioma(sigla) {
-              // console.log("trocarIdioma");
-              // console.log(sigla);
-              if (comboGoogleTradutor) {
-                comboGoogleTradutor.value = sigla;
-                changeEvent(comboGoogleTradutor); //Dispara a troca
-              }
+            function trocarIdioma(lang) {
+                if (comboGoogleTradutor) {
+                    comboGoogleTradutor.value = lang;
+                    changeEvent(comboGoogleTradutor);
+                }
             }
+
+        </script>
+        <script>
+            setTranslatorCombo(); // เรียกหลังโหลด Google Translate
         </script>
     </body>
 </html>
