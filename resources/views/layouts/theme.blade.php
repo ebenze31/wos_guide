@@ -56,7 +56,7 @@
                         <div class="small m-0">#Chinchilla DEV</div>
                     </div>
                     <div class="col-auto">
-                        <div style="display: none;" id="google_translate_element"></div>
+                        <div id="google_translate_element"></div>
                     </div>
                     <div class="col-auto">
                         <span class="small">#THV 1692</span>
