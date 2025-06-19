@@ -6,7 +6,7 @@
     .tier-blue { background-color: #d1ecf1; }
     .tier-purple { background-color: #e2d6f3; }
     .tier-gold { background-color: #FFCC99; }
-    .tier-pink { background-color: #FA8072; }
+    .tier-red { background-color: #FA8072; }
 </style>
 
 <div class="row">
@@ -138,8 +138,8 @@
                             $tierClass = 'tier-purple';
                         } elseif (in_array($item->Tier, ['Gold', 'Gold T1', 'Gold T2'])) {
                             $tierClass = 'tier-gold';
-                        } elseif (in_array($item->Tier, ['Pink', 'Pink T1', 'Pink T2', 'Pink T3'])) {
-                            $tierClass = 'tier-pink';
+                        } elseif (in_array($item->Tier, ['Red', 'Red T1', 'Red T2', 'Red T3'])) {
+                            $tierClass = 'tier-red';
                         } else {
                             $tierClass = '';
                         }
