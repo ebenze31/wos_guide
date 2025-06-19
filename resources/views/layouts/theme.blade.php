@@ -17,6 +17,21 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('theme/css/styles.css') }}" rel="stylesheet" />
     </head>
+    <style>
+        #google_translate_element {
+          margin: 10px;
+        }
+        .goog-te-combo {
+          padding: 5px;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        .VIpgJd-ZVi9od-ORHb-OEVmcd {
+          display: none !important;
+
+        }
+    </style>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
@@ -40,6 +55,15 @@
             <header class="py-5">
                 <div class="container px-5 pb-5">
                     <div class="row gx-5 align-items-center">
+                        <script type="text/javascript">
+                          function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({
+                              pageLanguage: 'en', // ภาษาเริ่มต้นของหน้าเว็บ (เช่น ไทย)
+                              includedLanguages: 'th,en,fr,ko,zh-CN,ja,es', // ภาษาที่ต้องการให้แปล (ระบุรหัสภาษา)
+                              layout: google.translate.TranslateElement.InlineLayout.SIMPLE // รูปแบบ UI
+                            }, 'google_translate_element');
+                          }
+                        </script>
                         @yield('content')
                     </div>
                 </div>
@@ -73,62 +97,5 @@
         <script src="{{ asset('theme/js/scripts.js') }}"></script>
 
         <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <script type="text/javascript">
-            let comboGoogleTradutor = null;
-
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'en',
-                    includedLanguages: 'th,en,zh-CN,ja,ko',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                }, 'google_translate_element');
-
-                // เรียกหลังสร้างเสร็จแน่นอน
-                setTimeout(setTranslatorCombo, 1000); // รอ 1 วินาทีให้ iframe แสดงก่อน
-            }
-
-
-            function setTranslatorCombo() {
-                const interval = setInterval(() => {
-                    const iframe = document.querySelector("iframe.goog-te-menu-frame");
-                    if (iframe) {
-                        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-                        const select = innerDoc.querySelector("select.goog-te-combo");
-                        if (select) {
-                            comboGoogleTradutor = select;
-                            clearInterval(interval);
-                        }
-                    }
-                }, 500);
-            }
-
-            function changeEvent(el) {
-                if (el.fireEvent) {
-                    el.fireEvent('onchange');
-                } else {
-                    const evObj = document.createEvent("HTMLEvents");
-                    evObj.initEvent("change", false, true);
-                    el.dispatchEvent(evObj);
-                }
-            }
-
-            function trocarIdioma(lang) {
-                const tryChange = () => {
-                    if (comboGoogleTradutor) {
-                        comboGoogleTradutor.value = lang;
-                        changeEvent(comboGoogleTradutor);
-                    } else {
-                        // ยังไม่เจอ select -> ลองใหม่ทุก 500ms
-                        setTimeout(tryChange, 500);
-                    }
-                };
-                tryChange();
-            }
-
-
-        </script>
-        <script>
-            setTranslatorCombo(); // เรียกหลังโหลด Google Translate
-        </script>
     </body>
 </html>
