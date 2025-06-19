@@ -368,8 +368,12 @@
             if (index > 0) row.remove();
         });
 
-        // โหลดค่า select
         parsed.selects.forEach((set, i) => {
+            const s = parseInt(set.start);
+            const e = parseInt(set.end);
+
+            if (isNaN(s) || isNaN(e) || e <= s) return;
+
             if (i > 0) {
                 const template = container.querySelector('.select-row').cloneNode(true);
                 template.querySelector('.start_select').value = '';
@@ -381,11 +385,23 @@
             }
 
             const row = container.querySelectorAll('.select-row')[i];
-            row.querySelector('.start_select').value = set.start || '';
-            if (set.start) row.querySelector('.end_select').disabled = false;
-            row.querySelector('.end_select').value = set.end || '';
+            const startSelect = row.querySelector('.start_select');
+            const endSelect = row.querySelector('.end_select');
+
+            startSelect.value = set.start;
+            endSelect.disabled = false;
+            endSelect.value = set.end;
+
+            // 🔽 ใส่ disabled ให้ option ใน end_select ที่ <= start
+            Array.from(endSelect.options).forEach((opt, index) => {
+                if (index === 0) return; // ข้าม "-- Please select --"
+                const val = parseInt(opt.value);
+                opt.disabled = !isNaN(val) && val <= s;
+            });
         });
     }
+
+
 
 
 </script>
