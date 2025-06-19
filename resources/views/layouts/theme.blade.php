@@ -30,10 +30,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:trocarIdioma('th')">TH</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:trocarIdioma('en')">EN</a>
+                                <div id="google_translate_element"></div>
                             </li>
                         </ul>
                     </div>
@@ -54,9 +51,6 @@
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                     <div class="col-auto">
                         <div class="small m-0">#Chinchilla DEV</div>
-                    </div>
-                    <div class="col-auto">
-                        <div id="google_translate_element"></div>
                     </div>
                     <div class="col-auto">
                         <span class="small">#THV 1692</span>
