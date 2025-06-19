@@ -70,7 +70,7 @@
             </header>
         </main>
         <!-- Footer-->
-        <footer class="mt-auto bg-light py-2" style="border-top: 1px solid #606060;">
+        <footer class="notranslate mt-auto bg-light py-2" style="border-top: 1px solid #606060;">
             <div class="container px-5 d-none d-lg-block">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                     <div class="col-auto">

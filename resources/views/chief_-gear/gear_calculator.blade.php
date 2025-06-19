@@ -92,20 +92,20 @@
     <div class="col-12 mt-3 mb-4">
         <div class="row text-center font-weight-bold">
             <div class="col-3">
-                Hardened Alloy
-                <br><b><span id="total_alloy">0</span></b>
+                <div>Hardened Alloy</div>
+                <b><span id="total_alloy">0</span></b>
             </div>
             <div class="col-3">
-                Polishing Solution
-                <br><b><span id="total_solution">0</span></b>
+                <div>Polishing Solution</div>
+                <b><span id="total_solution">0</span></b>
             </div>
             <div class="col-3">
-                Design Plans
-                <br><b><span id="total_plans">0</span></b>
+                <div>Design Plans</div>
+                <b><span id="total_plans">0</span></b>
             </div>
             <div class="col-3">
-                Lunar Amber
-                <br><b><span id="total_amber">0</span></b>
+                <div>Lunar Amber</div>
+                <b><span id="total_amber">0</span></b>
             </div>
         </div>
     </div>
