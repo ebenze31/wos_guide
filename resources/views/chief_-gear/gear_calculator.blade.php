@@ -212,14 +212,27 @@
                 calculateResources();
                 return;
             }
+
             end.disabled = false;
-            Array.from(end.options).forEach((opt, i) => {
-                if (i === 0) return;
-                opt.disabled = parseInt(opt.value) <= sIdx;
+
+            // ปรับการ disable option ของ End
+            Array.from(end.options).forEach(opt => {
+                const val = parseInt(opt.value);
+                if (isNaN(val)) {
+                    // "-- Please select --" (ค่าว่าง) เลือกได้เสมอ
+                    opt.disabled = false;
+                } else {
+                    // Disable เฉพาะค่าที่ต่ำกว่าหรือเท่ากับ start
+                    opt.disabled = val <= sIdx;
+                }
             });
-            if (parseInt(end.value) <= sIdx) {
-                end.value = "";
+
+            // ถ้า end มีค่าและต่ำกว่าหรือเท่ากับ start → reset
+            const eIdx = parseInt(end.value);
+            if (!isNaN(eIdx) && eIdx <= sIdx) {
+                end.value = ""; // reset ให้กลับเป็น -- Please select --
             }
+
             calculateResources();
         });
 
@@ -372,8 +385,10 @@
             const s = parseInt(set.start);
             const e = parseInt(set.end);
 
-            if (isNaN(s) || isNaN(e) || e <= s) return;
+            // ถ้า start ไม่ใช่ตัวเลขเลย ให้ข้ามแถวนี้
+            if (isNaN(s)) return;
 
+            // ถ้าต้องเพิ่มแถวใหม่
             if (i > 0) {
                 const template = container.querySelector('.select-row').cloneNode(true);
                 template.querySelector('.start_select').value = '';
@@ -390,18 +405,34 @@
 
             startSelect.value = set.start;
             endSelect.disabled = false;
-            endSelect.value = set.end;
 
-            // 🔽 ใส่ disabled ให้ option ใน end_select ที่ <= start
-            Array.from(endSelect.options).forEach((opt, index) => {
-                if (index === 0) return; // ข้าม "-- Please select --"
-                const val = parseInt(opt.value);
-                opt.disabled = !isNaN(val) && val <= s;
-            });
+            // ถ้ามี end และมากกว่า start → ใส่ค่าและ disable option ที่ <= start
+            if (!isNaN(e) && e > s) {
+                endSelect.value = set.end;
+
+                Array.from(endSelect.options).forEach((opt) => {
+                    const val = parseInt(opt.value);
+                    if (isNaN(val)) {
+                        opt.disabled = false; // "-- Please select --"
+                    } else {
+                        opt.disabled = val <= s;
+                    }
+                });
+
+            } else {
+                endSelect.value = '';
+                // ปรับ option ของ end ให้ disable ค่า <= start
+                Array.from(endSelect.options).forEach((opt) => {
+                    const val = parseInt(opt.value);
+                    if (isNaN(val)) {
+                        opt.disabled = false; // "-- Please select --"
+                    } else {
+                        opt.disabled = val <= s;
+                    }
+                });
+            }
         });
     }
-
-
 
 
 </script>
