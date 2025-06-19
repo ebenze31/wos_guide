@@ -40,11 +40,19 @@
         </div>
     </div>
 
+    <center><hr></center>
+
+    {{-- ปุ่มเพิ่มและลบ อยู่ข้างกัน --}}
+    <div class="col-12 text-right d-flex justify-content-end gap-2">
+        <button type="button" id="delete-select-btn" class="btn btn-danger" style="min-width: 90px; display:none;">- Delete</button>
+        <button type="button" id="add-select-btn" class="btn btn-primary" style="min-width: 90px;">+ Add</button>
+    </div>
+
     {{-- ชุด Select เริ่มต้น --}}
-    <div class="col-12 mt-4" id="select-container">
+    <div class="col-12 mt-2" id="select-container">
         <div class="row select-row">
             <div class="col-md-6">
-                <label>Starting Point:</label>
+                <label><b>Starting Point</b></label>
                 <select class="form-control start_select">
                     <option value="">-- Please select --</option>
                     @foreach($tiersWithStars as $i => $item)
@@ -58,7 +66,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label>End Point:</label>
+                <label><b>End Point</b></label>
                 <select class="form-control end_select" disabled>
                     <option value="">-- Please select --</option>
                     @foreach($tiersWithStars as $i => $item)
@@ -73,17 +81,11 @@
             </div>
             <div class="row mt-2 per-result">
                 <div class="col-12 text-muted small">
-                    <span class="res-summary">Alloy: - | Solution: - | Plans: - | Amber: - | Score SVS: -</span>
+                    <span class="res-summary" style="float: right;">Alloy: - | Solution: - | Plans: - | Amber: - | Score SVS: -</span>
                 </div>
             </div>
-            <center><hr></center>
+            <!-- <center><hr></center> -->
         </div>
-    </div>
-
-    {{-- ปุ่มเพิ่มและลบ อยู่ข้างกัน --}}
-    <div class="col-12 text-right mt-2 mb-3 d-flex justify-content-end gap-2">
-        <button type="button" id="delete-select-btn" class="btn btn-danger" style="min-width: 90px; display:none;">- Delete</button>
-        <button type="button" id="add-select-btn" class="btn btn-primary" style="min-width: 90px;">+ Add</button>
     </div>
 
     {{-- ผลรวมทรัพยากร --}}
