@@ -287,6 +287,8 @@
         if (scoreEl) {
             scoreEl.textContent = totalScore.toLocaleString();
         }
+
+        saveToLocalStorage(); // บันทึกค่าทุกครั้งหลังคำนวณ
     }
 
 
@@ -312,8 +314,10 @@
         deleteBtn.style.display = count > 1 ? '' : 'none';
     }
 
-    // เรียกตอนโหลดหน้าครั้งแรก
+    
+
     window.addEventListener('DOMContentLoaded', () => {
+        loadFromLocalStorage(); // โหลดก่อนคำนวณ
         calculateResources();
         updateButtonsVisibility();
     });
@@ -325,6 +329,63 @@
             }
         });
     });
+
+    // บันทึกข้อมูลลง localStorage
+    function saveToLocalStorage() {
+        const inputs = {
+            user_alloy: document.getElementById('user_alloy').value,
+            user_solution: document.getElementById('user_solution').value,
+            user_plans: document.getElementById('user_plans').value,
+            user_amber: document.getElementById('user_amber').value,
+            selects: []
+        };
+
+        container.querySelectorAll('.select-row').forEach(row => {
+            inputs.selects.push({
+                start: row.querySelector('.start_select').value,
+                end: row.querySelector('.end_select').value
+            });
+        });
+
+        localStorage.setItem('gear_data', JSON.stringify(inputs));
+    }
+
+    // โหลดข้อมูลจาก localStorage
+    function loadFromLocalStorage() {
+        const data = localStorage.getItem('gear_data');
+        if (!data) return;
+
+        const parsed = JSON.parse(data);
+
+        document.getElementById('user_alloy').value = parsed.user_alloy || '';
+        document.getElementById('user_solution').value = parsed.user_solution || '';
+        document.getElementById('user_plans').value = parsed.user_plans || '';
+        document.getElementById('user_amber').value = parsed.user_amber || '';
+
+        // ลบ select-row เก่า (เว้นแถวแรกไว้)
+        const rows = container.querySelectorAll('.select-row');
+        rows.forEach((row, index) => {
+            if (index > 0) row.remove();
+        });
+
+        // โหลดค่า select
+        parsed.selects.forEach((set, i) => {
+            if (i > 0) {
+                const template = container.querySelector('.select-row').cloneNode(true);
+                template.querySelector('.start_select').value = '';
+                template.querySelector('.end_select').value = '';
+                template.querySelector('.end_select').disabled = true;
+                template.classList.add('mt-2');
+                container.appendChild(template);
+                attachListeners(template);
+            }
+
+            const row = container.querySelectorAll('.select-row')[i];
+            row.querySelector('.start_select').value = set.start || '';
+            if (set.start) row.querySelector('.end_select').disabled = false;
+            row.querySelector('.end_select').value = set.end || '';
+        });
+    }
 
 
 </script>
