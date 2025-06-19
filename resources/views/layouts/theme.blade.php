@@ -30,7 +30,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                             <li class="nav-item">
-                                <a class="nav-link">..</a>
+                                <a class="nav-link"></a>
                             </li>
                         </ul>
                     </div>
@@ -40,6 +40,7 @@
             <header class="py-5">
                 <div class="container px-5 pb-5">
                     <div class="row gx-5 align-items-center">
+                        <div id="google_translate_element"></div>
                         @yield('content')
                     </div>
                 </div>
@@ -71,5 +72,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('theme/js/scripts.js') }}"></script>
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'th', // หรือ 'en' แล้วแต่ภาษาเริ่มต้นของหน้า
+                    includedLanguages: 'th,en,zh-CN,ja,ko', // เลือกภาษาที่ต้องการให้แปล
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+            }
+        </script>
     </body>
 </html>
