@@ -78,41 +78,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('theme/js/scripts.js') }}"></script>
-        
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script type="text/javascript">
-            var comboGoogleTradutor = 'null'; //Varialvel global
-
             function googleTranslateElementInit() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'po',
-                // includedLanguages: 'th,en,zh-TW,ja,ko,es',
-                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-              }, 'google_translate_element');
-
-              comboGoogleTradutor = document.getElementById("google_translate_element").querySelector(".goog-te-combo");
+                new google.translate.TranslateElement({
+                    pageLanguage: 'th', // หรือ 'en' แล้วแต่ภาษาเริ่มต้นของหน้า
+                    includedLanguages: 'th,en,zh-CN,ja,ko', // เลือกภาษาที่ต้องการให้แปล
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
             }
-
-            function changeEvent(el) {
-              if (el.fireEvent) {
-                el.fireEvent('onchange');
-              } else {
-                var evObj = document.createEvent("HTMLEvents");
-
-                evObj.initEvent("change", false, true);
-                el.dispatchEvent(evObj);
-              }
-            }
-
-            function trocarIdioma(sigla) {
-              // console.log("trocarIdioma");
-              // console.log(sigla);
-              if (comboGoogleTradutor) {
-                comboGoogleTradutor.value = sigla;
-                changeEvent(comboGoogleTradutor); //Dispara a troca
-              }
-            }
-          </script>
-          <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        
+        </script>
     </body>
 </html>
